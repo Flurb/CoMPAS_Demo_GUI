@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>CoMPAS Query</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>CoMPAS Query</h1>
+    <p th:text="'Query: ' + ${queryModel.query}" />
+    <p th:text="${queryModel.response}" />
+    <a href="/basex">Query another one</a>
+</body>
+</html>
