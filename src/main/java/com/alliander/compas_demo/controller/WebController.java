@@ -1,4 +1,4 @@
-package com.alliander.compas_demo;
+package com.alliander.compas_demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

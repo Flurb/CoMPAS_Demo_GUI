@@ -1,4 +1,4 @@
-# CoMPAS Demo GUI
+# CoMPAS Microservice example
 Showcasing some CoMPAS database action with a simple Spring Boot application.
 
 ## How to run
