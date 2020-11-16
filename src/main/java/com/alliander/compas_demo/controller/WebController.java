@@ -18,33 +18,40 @@ import java.io.IOException;
 @Controller
 public class WebController {
 
+  /* Holding the BaseX session */
+  private BaseXClient baseXSession;
+
   Logger logger = LoggerFactory.getLogger(WebController.class);
 
-  @GetMapping("/basex")
-  public String basexForm(Model model) {
-    logger.debug("basexForm: GET");
+  @GetMapping("/query")
+  public String basexForm(Model model) throws IOException {
+
+    // Adding a new Query Model to store all the data.
     model.addAttribute("queryModel", new DatabaseQueryModel());
-    return "basex";
+
+    baseXSession = new BaseXClient("localhost", 1984, "admin", "admin");
+    baseXSession.execute("open substation");
+    
+    return "query";
   }
 
-  @PostMapping("/basex")
+  @PostMapping("/query")
   public String basexSubmit(@ModelAttribute DatabaseQueryModel queryModel, Model model) throws IOException {
-    logger.debug("basexSubmit: POST");
-    try(BaseXClient session = new BaseXClient("localhost", 1984, "admin", "admin")) {
-      logger.debug("basexSubmit: opening the substation database");
-      session.execute("open substation");
 
-      String finalQueryResponse = "";
+    final String queryToRun = queryModel.getQuery();
+    String finalQueryResponse = "";
 
-      try (Query query = session.query(queryModel.getQuery())) {
-        while(query.more()) {
-          finalQueryResponse += query.next();
-        }
+    logger.debug("basexSubmit: executing query: {}", queryToRun);
+
+    try (Query query = baseXSession.query(queryToRun)) {
+      while(query.more()) {
+        finalQueryResponse += query.next();
       }
-      queryModel.setResponse(finalQueryResponse);
     }
+    queryModel.setResponse(finalQueryResponse);
+
     model.addAttribute("queryModel", queryModel);
-    return "result";
+    return "query";
   }
 
 }
