@@ -19,36 +19,55 @@ import java.io.IOException;
 public class WebController {
 
   /* Holding the BaseX session */
-  private BaseXClient baseXSession;
+  private BaseXClient databaseSession;
 
   Logger logger = LoggerFactory.getLogger(WebController.class);
 
   @GetMapping("/query")
-  public String basexForm(Model model) throws IOException {
+  public String getQuery(Model model) throws IOException {
 
     // Adding a new Query Model to store all the data.
     model.addAttribute("queryModel", new DatabaseQueryModel());
 
-    baseXSession = new BaseXClient("localhost", 1984, "admin", "admin");
-    baseXSession.execute("open substation");
+    databaseSession = new BaseXClient("localhost", 1984, "admin", "admin");
     
     return "query";
   }
 
   @PostMapping("/query")
-  public String basexSubmit(@ModelAttribute DatabaseQueryModel queryModel, Model model) throws IOException {
+  public String postQuery(@ModelAttribute DatabaseQueryModel queryModel, Model model) {
 
     final String queryToRun = queryModel.getQuery();
-    String finalQueryResponse = "";
+    String reponse = "";
 
-    logger.debug("basexSubmit: executing query: {}", queryToRun);
-
-    try (Query query = baseXSession.query(queryToRun)) {
-      while(query.more()) {
-        finalQueryResponse += query.next();
+    logger.debug("postQuery: executing query: {}", queryToRun);
+    try {
+      try (Query query = databaseSession.query(queryToRun)) {
+        while(query.more()) {
+          reponse += query.next();
+        }
       }
+      queryModel.setDatabaseResponse(reponse);
+    } catch (IOException exception) {
+      queryModel.setDatabaseResponse(exception.getMessage());
     }
-    queryModel.setResponse(finalQueryResponse);
+
+    model.addAttribute("queryModel", queryModel);
+    return "query";
+  }
+
+  @PostMapping("/execute")
+  public String postExecute(@ModelAttribute DatabaseQueryModel queryModel, Model model) {
+
+    final String command = queryModel.getCommand();
+
+    logger.debug("postExecute: executing command: {}", command);
+
+    try {
+      queryModel.setDatabaseResponse(databaseSession.execute(command));
+    } catch (IOException exception) {
+      queryModel.setDatabaseResponse(exception.getMessage());
+    }
 
     model.addAttribute("queryModel", queryModel);
     return "query";

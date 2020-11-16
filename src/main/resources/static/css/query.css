@@ -1,0 +1,15 @@
+textarea {
+    width: 95%;
+    height: 400px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    display: block;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+    font-size: 12px;
+}
+
+input[type=text] {
+    width: 30%;
+}

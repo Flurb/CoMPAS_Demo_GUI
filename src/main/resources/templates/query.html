@@ -3,19 +3,7 @@
 <head>
     <title>CoMPAS Query</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style>
-        textarea {
-            width: 95%;
-            height: 400px;
-            overflow-x: scroll;
-            overflow-y: scroll;
-            display: block;
-            border: 1px solid black;
-            padding: 5px;
-            margin: 5px;
-            font-size: 12px;
-        }
-        </style>
+    <link rel="stylesheet" href="css/query.css">
     <script>
 
         function formatXml(xml) {
@@ -92,13 +80,19 @@
     </script>
 </head>
 <body>
-	<h1>CoMPAS Query</h1>
-    <form action="#" th:action="@{/query}" th:object="${queryModel}" method="post">
-    	<p>Query: <input type="text" th:field="*{query}" /><input type="submit" value="Query" /></p>
-    </form>
+    <h1>CoMPAS Query</h1>
     <div>
-        <p th:text="'Query: ' + ${queryModel.query}" />
-        <textarea class="formatted" th:text="${queryModel.response}" />
+        <form action="#" th:action="@{/execute}" th:object="${queryModel}" method="post">
+            <p>Command: <input type="text" th:field="*{command}" /><input type="submit" value="Execute" /></p>
+        </form>
+        <form action="#" th:action="@{/query}" th:object="${queryModel}" method="post">
+            <p>Query: <input type="text" th:field="*{query}" /><input type="submit" value="Query" /></p>
+        </form>
+        <div>
+            <p th:text="'Last executed query: ' + ${queryModel.query}" />
+            <p th:text="'Last executed command: ' + ${queryModel.command}" />
+            <textarea class="formatted" th:text="${queryModel.databaseResponse}" />
+        </div>
     </div>
     <img th:src="@{images/microservice_explanation_in_technical_overview_CoMPAS.svg}" style="width:50%;height:50%" />
 </body>
