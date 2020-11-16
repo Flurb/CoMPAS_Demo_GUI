@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>CoMPAS Query</title>
+    <title>CoMPAS Microservice</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/query.css">
     <script>
@@ -80,13 +80,13 @@
     </script>
 </head>
 <body>
-    <h1>CoMPAS Query</h1>
+    <h1>CoMPAS Microservice</h1>
     <div>
         <form action="#" th:action="@{/execute}" th:object="${queryModel}" method="post">
-            <p>Command: <input type="text" th:field="*{command}" /><input type="submit" value="Execute" /></p>
+            <p><input type="text" th:field="*{command}"/><input type="submit" value="Execute Command" /></p>
         </form>
         <form action="#" th:action="@{/query}" th:object="${queryModel}" method="post">
-            <p>Query: <input type="text" th:field="*{query}" /><input type="submit" value="Query" /></p>
+            <p><input type="text" th:field="*{query}" /><input type="submit" value="Execute Query" /></p>
         </form>
         <div>
             <p th:text="'Last executed query: ' + ${queryModel.query}" />

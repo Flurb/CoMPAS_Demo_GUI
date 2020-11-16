@@ -14,6 +14,8 @@ import com.alliander.compas_demo.database.BaseXClient;
 import com.alliander.compas_demo.database.BaseXClient.Query;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 
 @Controller
 public class WebController {
