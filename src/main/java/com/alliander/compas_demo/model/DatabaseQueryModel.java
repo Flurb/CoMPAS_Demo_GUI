@@ -5,7 +5,7 @@ public class DatabaseQueryModel {
 	private String query;
 	private String command;
 	private String databaseResponse;
-  
+
 	public String getQuery() {
 	  	return query;
 	}
