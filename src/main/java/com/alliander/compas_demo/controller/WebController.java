@@ -60,11 +60,14 @@ public class WebController {
     String response = "";
 
     try {
+      // TODO: name of db can be different, now static.
+      databaseSession.execute("open substation");
       try (Query query = databaseSession.query(queryToRun)) {
         while(query.more()) {
           response += query.next();
         }
       }
+      databaseSession.execute("close");
       queryModel.setDatabaseResponse(response);
     } catch (IOException exception) {
       queryModel.setDatabaseResponse(exception.getMessage());

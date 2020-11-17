@@ -99,8 +99,6 @@
         <h4>Pre-Selections</h4>
         <input type="submit" value="Add Config File" onclick="setTextOfElementById('commandInput','create db substation /srv/basex/data/open_substation.scd'); clickButtonById('executeCommand')" />
         <input type="submit" value="Delete Config File" onclick="setTextOfElementById('commandInput','drop db substation'); clickButtonById('executeCommand')" />
-        <input type="submit" value="Open Config File" onclick="setTextOfElementById('commandInput','open substation'); clickButtonById('executeCommand')" />
-        <input type="submit" value="Close Full Config" onclick="setTextOfElementById('commandInput','close'); clickButtonById('executeCommand')" />
         <input type="submit" value="Get Full Config" onclick="setTextOfElementById('queryInput','/'); clickButtonById('executeQuery')" />
         <input type="submit" value="Get Specific Voltage" onclick="setTextOfElementById('queryInput','\/\/VoltageLevel[@name=\'D1\']\/Voltage[@multiplier=\'k\']'); clickButtonById('executeQuery')" />
         <input type="submit" value="Adjust Specific Voltage" onclick="setTextOfElementById('queryInput','replace value of node \/\/VoltageLevel[@name=\'D1\']\/Voltage[@multiplier=\'k\'] with \'50\''); clickButtonById('executeQuery')" />
