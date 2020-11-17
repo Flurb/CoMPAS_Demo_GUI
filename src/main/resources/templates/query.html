@@ -104,8 +104,6 @@
             <p><input type="submit" value="Export Full Config" /></p>
         </form>
         <div>
-            <p th:text="'Last executed query: ' + ${queryModel.query}" />
-            <p th:text="'Last executed command: ' + ${queryModel.command}" />
             <textarea class="formatted" th:text="${queryModel.databaseResponse}" />
         </div>
     </div>
